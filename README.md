@@ -31,8 +31,8 @@ Pull Google ranked keywords for a page or domain via DataForSEO Labs (`ranked_ke
 ```bash
 export DATAFORSEO_LOGIN=your_login
 export DATAFORSEO_PASSWORD=your_password
-python3 scripts/extract_ranked_keywords.py "https://cloudconvert.com/cbr-to-pdf"
-python3 scripts/extract_ranked_keywords.py "https://ezgif.com/gif-to-jpg" --mode tool-page
+python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/"
+python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/" --mode tool-page
 ```
 
 ### competitor-backlink-gap-extractor
@@ -44,8 +44,8 @@ Extract high-quality competitor backlinks (live, not broken, not UGC, high rank,
 ```bash
 export DATAFORSEO_LOGIN=your_login
 export DATAFORSEO_PASSWORD=your_password
-python3 scripts/extract_backlink_gap.py ezgif.com
-python3 scripts/extract_backlink_gap.py ezgif.com --own yourdomain.com
+python3 scripts/extract_backlink_gap.py https://www.uwarp.design/
+python3 scripts/extract_backlink_gap.py https://www.uwarp.design/ --own uwarp.design
 ```
 
 ### seo-keyword-content

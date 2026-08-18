@@ -17,9 +17,9 @@ export DATAFORSEO_PASSWORD=your_password
 ## Quick Start
 
 ```bash
-python3 scripts/extract_backlink_gap.py "https://ezgif.com/gif-to-jpg"
-python3 scripts/extract_backlink_gap.py ezgif.com cloudconvert.com --limit 300
-python3 scripts/extract_backlink_gap.py ezgif.com --own uwarp.design
+python3 scripts/extract_backlink_gap.py "https://www.uwarp.design/"
+python3 scripts/extract_backlink_gap.py https://www.uwarp.design/ --limit 300
+python3 scripts/extract_backlink_gap.py https://www.uwarp.design/ --own uwarp.design
 ```
 
 ## Inputs

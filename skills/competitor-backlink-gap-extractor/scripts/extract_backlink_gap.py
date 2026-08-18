@@ -3,9 +3,9 @@
 Extract high-quality competitor backlinks via DataForSEO.
 
 Usage:
-  python3 scripts/extract_backlink_gap.py ezgif.com
-  python3 scripts/extract_backlink_gap.py ezgif.com --own uwarp.design
-  python3 scripts/extract_backlink_gap.py https://ezgif.com/gif-to-jpg --limit 300
+  python3 scripts/extract_backlink_gap.py https://www.uwarp.design/
+  python3 scripts/extract_backlink_gap.py https://www.uwarp.design/ --own uwarp.design
+  python3 scripts/extract_backlink_gap.py https://www.uwarp.design/ --limit 300
 """
 from __future__ import annotations
 

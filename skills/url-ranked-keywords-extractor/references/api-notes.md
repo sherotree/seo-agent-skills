@@ -10,8 +10,8 @@ Docs: https://docs.dataforseo.com/v3/dataforseo_labs/google/ranked_keywords/live
 
 | 输入 | `target` | `filters` |
 | --- | --- | --- |
-| `https://cloudconvert.com/cbr-to-pdf` | `cloudconvert.com` | `relative_url = /cbr-to-pdf` |
-| `cloudconvert.com` | `cloudconvert.com` | 无（全站） |
+| `https://www.uwarp.design/` | `uwarp.design` | 无（全站） |
+| `uwarp.design` | `uwarp.design` | 无（全站） |
 
 `relative_url` 不含协议与域名，须以 `/` 开头。
 

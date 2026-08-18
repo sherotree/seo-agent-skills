@@ -3,8 +3,8 @@
 Extract Google ranked keywords for a URL via DataForSEO Labs API.
 
 Usage:
-  python3 scripts/extract_ranked_keywords.py "https://cloudconvert.com/cbr-to-pdf"
-  python3 scripts/extract_ranked_keywords.py "cloudconvert.com" --limit 50 --sort volume
+  python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/"
+  python3 scripts/extract_ranked_keywords.py "uwarp.design" --limit 50 --sort volume
 """
 from __future__ import annotations
 

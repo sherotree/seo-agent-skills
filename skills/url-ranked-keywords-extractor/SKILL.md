@@ -19,9 +19,9 @@ export DATAFORSEO_PASSWORD=your_password
 ## Quick Start
 
 ```bash
-python3 scripts/extract_ranked_keywords.py "https://cloudconvert.com/cbr-to-pdf"
-python3 scripts/extract_ranked_keywords.py "https://ezgif.com/gif-to-jpg" --mode tool-page
-python3 scripts/extract_ranked_keywords.py "cloudconvert.com" --limit 50
+python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/"
+python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/" --mode tool-page
+python3 scripts/extract_ranked_keywords.py "uwarp.design" --limit 50
 ```
 
 竞品工具页复制场景，优先用 `--mode tool-page`（自动从 URL slug 解析 `{source}-to-{target}`）。
@@ -51,9 +51,8 @@ python3 scripts/extract_ranked_keywords.py "cloudconvert.com" --limit 50
 4. **默认阈值**：position ≤ 20，volume ≥ 300，traffic ≥ 1，**KD < 40**，**CPC ≥ 0.2**
 
 ```bash
-python3 scripts/extract_ranked_keywords.py "https://ezgif.com/gif-to-jpg" --mode tool-page
-python3 scripts/extract_ranked_keywords.py "https://ezgif.com/reverse" --mode tool-page
-# reverse 无法解析 pair → 仅 position/volume/traffic 筛选
+python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/" --mode tool-page
+# 根路径无法解析 pair → 仅 position/volume/traffic 筛选
 ```
 
 ## API Protocol
@@ -64,26 +63,25 @@ python3 scripts/extract_ranked_keywords.py "https://ezgif.com/reverse" --mode to
 
 1. 去掉协议（`http://` / `https://`）与末尾多余 `/`
 2. 去掉前缀 `www.`
-3. 域名 → 请求字段 `target`（例：`cloudconvert.com`）
-4. 相对路径 → filter（例：`/cbr-to-pdf`）
+3. 域名 → 请求字段 `target`（例：`uwarp.design`）
+4. 相对路径 → filter（例：有 path 时才加；`https://www.uwarp.design/` 不设）
 5. **纯根域名**（无 path 或 path 为 `/`）→ **不设** `relative_url` filter，查全站排名词
 
 ### Filter（有 path 时）
 
 ```json
-["ranked_serp_element.serp_item.relative_url", "=", "/cbr-to-pdf"]
+["ranked_serp_element.serp_item.relative_url", "=", "/pricing"]
 ```
 
 ### 请求体示例
 
 ```json
 [{
-  "target": "cloudconvert.com",
+  "target": "uwarp.design",
   "location_code": 2840,
   "language_code": "en",
   "limit": 100,
-  "order_by": ["keyword_data.keyword_info.search_volume,desc"],
-  "filters": ["ranked_serp_element.serp_item.relative_url", "=", "/cbr-to-pdf"]
+  "order_by": ["keyword_data.keyword_info.search_volume,desc"]
 }]
 ```
 
