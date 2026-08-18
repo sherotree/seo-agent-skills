@@ -9,10 +9,17 @@ description: Extract high-quality competitor backlinks via DataForSEO Backlinks 
 
 ## Prerequisites
 
+Prefer `.env.local` in the project (or git root). Shell `export` still works and wins.
+
 ```bash
-export DATAFORSEO_LOGIN=your_login
-export DATAFORSEO_PASSWORD=your_password
+# .env.local
+DATAFORSEO_LOGIN=your_login
+DATAFORSEO_PASSWORD=your_password
 ```
+
+Do not commit it. Confirm the consuming repo gitignores `.env` / `.env.*`. Do not store credentials in the skill directory or paste the file into chat.
+
+Lookup order: existing env → `.env.local` then `.env` (cwd up to git root, then the skill dir) → `~/.env.local` / `~/.env` / `~/.dataforseo.env`. Only `DATAFORSEO_*` keys are read. No extra packages.
 
 ## Quick Start
 

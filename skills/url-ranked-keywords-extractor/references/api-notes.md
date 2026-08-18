@@ -37,3 +37,5 @@ Values: `informational` | `navigational` | `commercial` | `transactional`
 ## Auth
 
 HTTP Basic: `DATAFORSEO_LOGIN`:`DATAFORSEO_PASSWORD`
+
+Credentials come from the environment, or from `.env.local` / `.env` (see SKILL.md). Existing env vars win.

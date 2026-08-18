@@ -29,8 +29,6 @@ Pull Google ranked keywords for a page or domain via DataForSEO Labs (`ranked_ke
 **Use when:** extracting ranking keywords for a specific URL, cloning a competitor tool page, or filtering `{source}-to-{target}` queries.
 
 ```bash
-export DATAFORSEO_LOGIN=your_login
-export DATAFORSEO_PASSWORD=your_password
 python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/"
 python3 scripts/extract_ranked_keywords.py "https://www.uwarp.design/" --mode tool-page
 ```
@@ -42,8 +40,6 @@ Extract high-quality competitor backlinks (live, not broken, not UGC, high rank,
 **Use when:** building an outreach list, finding referring domains, or comparing competitor vs own backlinks.
 
 ```bash
-export DATAFORSEO_LOGIN=your_login
-export DATAFORSEO_PASSWORD=your_password
 python3 scripts/extract_backlink_gap.py https://www.uwarp.design/
 python3 scripts/extract_backlink_gap.py https://www.uwarp.design/ --own uwarp.design
 ```
@@ -56,12 +52,15 @@ Write and normalize SEO-rich tool-directory fields: `title`, `keywords`, `oneLin
 
 ## Prerequisites
 
-The two DataForSEO extractors need API credentials in the environment. They never read a local `.env` file:
+The two DataForSEO extractors need API credentials. Put them in `.env.local` at the project or git root. Shell `export` still works and takes precedence.
 
 ```bash
-export DATAFORSEO_LOGIN=your_login
-export DATAFORSEO_PASSWORD=your_password
+# .env.local
+DATAFORSEO_LOGIN=your_login
+DATAFORSEO_PASSWORD=your_password
 ```
+
+Do not commit that file. Add `.env` / `.env.*` to the **consuming** repo's `.gitignore` — installing this pack does not gitignore secrets in your project. Keep credentials out of the skill directory, and do not paste `.env.local` into chat.
 
 `seo-keyword-content` is markdown-only and does not call an API.
 

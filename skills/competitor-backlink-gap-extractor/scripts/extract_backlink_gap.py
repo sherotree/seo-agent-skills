@@ -34,14 +34,84 @@ DEFAULT_MIN_RANK = 30
 DEFAULT_MIN_ETV = 300
 
 
+CRED_KEYS = ("DATAFORSEO_LOGIN", "DATAFORSEO_PASSWORD")
+ENV_FILENAMES = (".env.local", ".env")
+HOME_ENV_FILENAMES = (".env.local", ".env", ".dataforseo.env")
+
+
+def _parse_env_file(path: str) -> dict[str, str]:
+    values: dict[str, str] = {}
+    try:
+        with open(path, encoding="utf-8") as handle:
+            lines = handle.readlines()
+    except OSError:
+        return values
+    for raw in lines:
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        if line.startswith("export "):
+            line = line[7:].strip()
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+            value = value[1:-1]
+        if key:
+            values[key] = value
+    return values
+
+
+def _iter_env_paths() -> list[str]:
+    paths: list[str] = []
+    seen: set[str] = set()
+
+    def add_dir(directory: str, names: tuple[str, ...]) -> None:
+        for name in names:
+            path = os.path.join(directory, name)
+            if path not in seen:
+                seen.add(path)
+                paths.append(path)
+
+    cwd = os.path.abspath(os.getcwd())
+    here = cwd
+    while True:
+        add_dir(here, ENV_FILENAMES)
+        if os.path.isdir(os.path.join(here, ".git")):
+            break
+        parent = os.path.dirname(here)
+        if parent == here:
+            break
+        here = parent
+
+    add_dir(os.path.dirname(os.path.abspath(__file__)), ENV_FILENAMES)
+    add_dir(os.path.expanduser("~"), HOME_ENV_FILENAMES)
+    return paths
+
+
+def load_dotenv() -> None:
+    """Fill missing DATAFORSEO_* keys from .env.local / .env. Existing env wins."""
+    for path in _iter_env_paths():
+        if not os.path.isfile(path):
+            continue
+        parsed = _parse_env_file(path)
+        for key in CRED_KEYS:
+            value = parsed.get(key, "").strip()
+            if value and not os.environ.get(key, "").strip():
+                os.environ[key] = value
+
+
 def get_credentials() -> tuple[str, str]:
-    login = os.environ.get("DATAFORSEO_LOGIN", "")
-    password = os.environ.get("DATAFORSEO_PASSWORD", "")
+    load_dotenv()
+    login = os.environ.get("DATAFORSEO_LOGIN", "").strip()
+    password = os.environ.get("DATAFORSEO_PASSWORD", "").strip()
     if not login or not password:
         print(
             "error: DATAFORSEO_LOGIN and DATAFORSEO_PASSWORD not set\n"
-            "Run: export DATAFORSEO_LOGIN=your_login\n"
-            "     export DATAFORSEO_PASSWORD=your_password",
+            "Add them to .env.local in the project (or git root):\n"
+            "  DATAFORSEO_LOGIN=your_login\n"
+            "  DATAFORSEO_PASSWORD=your_password\n"
+            "Shell export still works and takes precedence.",
             file=sys.stderr,
         )
         sys.exit(1)
